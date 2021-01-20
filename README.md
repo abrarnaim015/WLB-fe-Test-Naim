@@ -1,4 +1,5 @@
 # Movie & Tv Series Web App
+<img src="./react-client/public/popcorn.png">
 
 ## TypeDerf
 ```js
