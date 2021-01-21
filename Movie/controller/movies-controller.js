@@ -1,10 +1,16 @@
-const { MoviesCollection, ObjectID } = require('../config')
+const { getDatabase } = require('../config')
+const { ObjectID } = require('mongodb')
+// const { MoviesCollection, ObjectID } = require('../config')
+// const db = getDatabase()
+// const MoviesCollection = db.collection('movies')
 
 
 class MoviesController {
 
   static async getMovie(req, res, next) {
     try {
+      const db = getDatabase()
+      const MoviesCollection = db.collection('movies')
       const movies = await MoviesCollection.find().toArray()
       res.status(200).json(movies)
     } catch (err) {
@@ -15,6 +21,8 @@ class MoviesController {
   static async getMovieById(req, res, next) {
     try {
       const id = req.params.id
+      const db = getDatabase()
+      const MoviesCollection = db.collection('movies')
       const getData = await MoviesCollection.findOne({ _id: ObjectID(id) })
       res.status(200).json(getData)
     } catch (err) {
@@ -25,6 +33,8 @@ class MoviesController {
   static async postMovie(req, res, next) {
     try {
       const dataBody = req.body
+      const db = getDatabase()
+      const MoviesCollection = db.collection('movies')
       const newMovie = await MoviesCollection.insertOne(dataBody)
       res.status(201).json(newMovie)
     } catch (err) {
@@ -36,6 +46,8 @@ class MoviesController {
     try {
       const id = req.params.id
       const dataBody = req.body
+      const db = getDatabase()
+      const MoviesCollection = db.collection('movies')
       const updateMovie = await MoviesCollection.findOneAndUpdate({ _id: ObjectID(id) }, { $set: { title: dataBody.title, overview: dataBody.overview, poster_path: dataBody.poster_path, popularity: dataBody.popularity, tags: dataBody.tags } }, { returnOriginal: false })
 
       res.status(200).json(updateMovie)
@@ -47,6 +59,8 @@ class MoviesController {
   static async deleteMovie(req, res, next) {
     try {
       const id = req.params.id
+      const db = getDatabase()
+      const MoviesCollection = db.collection('movies')
       const delMovie = await MoviesCollection.deleteOne({ _id: ObjectID(id) })
       if (delMovie.deletedCount === 1) {
         res.status(200).json({ msg: "Successfully deleted one document." })
