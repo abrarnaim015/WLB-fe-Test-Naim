@@ -1,6 +1,12 @@
 # Movie & Tv Series Web App
 <img src="./react-client/public/popcorn.png">
 
+```
+ nodemon App.js => in Movie folder
+ nodemon App.js => in Tv Series folder
+ nodemon App.js => in Oercerstrator folder
+ npm run start => in react folder 
+```
 ## TypeDerf
 ```js
 const typeDefs = gql`
